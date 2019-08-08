@@ -10,6 +10,13 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $visible = [
+        'id',
+        'name',
+        'email',
+        'is_customer',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

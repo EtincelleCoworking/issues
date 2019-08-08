@@ -2,17 +2,17 @@
 
 @section('content')
     <div class="container">
-        <issue :issue="issue"/>
+        <issue :issue="issue" :current_user="user" />
     </div>
 @endsection
 
 
 @section('javascript')
     <script type="application/javascript">
-        const app = new Vue({
+        window.app = new Vue({
             el: '#app',
             data: {
-                api_token : '{{Auth::user()->api_token}}',
+                user : {!! json_encode(Auth::user()->makeVisible('api_token')) !!},
                 issue: {!! json_encode($issue) !!}
             }
         });

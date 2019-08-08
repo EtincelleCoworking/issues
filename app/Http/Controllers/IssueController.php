@@ -27,6 +27,8 @@ class IssueController extends Controller
         $issue->title = '';
         $issue->description = '';
         $issue->reporter = Auth::user();
+        $issue->created_at = date('Y-m-d H:i:s');
+        $issue->updated_at = $issue->created_at;
         return view('issues/show', [
             'issue' => $issue
         ]);

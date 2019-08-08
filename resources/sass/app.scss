@@ -44,4 +44,7 @@
 
 @import 'node_modules/bootstrap-vue/src/index.scss';
 
+.ProseMirror:focus{
+    outline: none;
+}
 //@import 'editor';
