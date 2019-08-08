@@ -15,7 +15,10 @@ class User extends Authenticatable
         'name',
         'email',
         'is_customer',
+        'avatar',
     ];
+
+    protected $appends = ['avatar'];
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +53,10 @@ class User extends Authenticatable
             'id' => $this->id,
             'name' => $this->name,
         ];
+    }
+
+    public function getAvatarAttribute()
+    {
+        return sprintf('https://www.gravatar.com/avatar/%s?s=38&d=retro', md5(strtolower(trim($this->email))));
     }
 }

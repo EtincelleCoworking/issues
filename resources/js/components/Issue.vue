@@ -138,15 +138,32 @@
             <b-button @click="enableEdit" variant="secondary" class="float-right">Edit</b-button>
             -->
             <h1>{{issue.title}}</h1>
-            <div class="text-muted">Reported by {{issue.reporter.name}}
-                on {{issue.created_at | moment("dddd, MMMM Do YYYY")}} ({{issue.created_at | moment("from")}})<span
-                    v-if="issue.created_at!=issue.updated_at">, last updated
-                    on {{issue.updated_at | moment("dddd, MMMM Do YYYY")}} ({{issue.updated_at | moment("from")}})</span>
-            </div>
             <div class="row mb-2">
-                <div class="col">
+                <div class="col-8">
                     <b-card class="h-100">
                         <div v-html="issue.description"></div>
+                    </b-card>
+                </div>
+                <div class="col-4">
+                    <b-card header="Reporter" class="mb-1">
+                        <div class="mb-2">
+                            <img :src="issue.reporter.avatar" class="rounded float-right"/>
+                            <small class="text-muted">Reported by</small>
+                            <br />
+                            {{issue.reporter.name}}
+                        </div>
+                        <div class="mb-2">
+                            <small class="text-muted">Created</small>
+                            <br />
+                            {{issue.created_at | moment("dddd, MMMM Do YYYY")}}
+                            ({{issue.created_at | moment("from")}})
+                        </div>
+                        <div class="mb-2"v-if="issue.created_at!=issue.updated_at">
+                            <small class="text-muted">Last update</small>
+                            <br />
+                            {{issue.updated_at | moment("dddd, MMMM Do YYYY")}}
+                            ({{issue.updated_at | moment("from")}})
+                        </div>
                     </b-card>
                 </div>
                 <!--
@@ -176,14 +193,16 @@
                                         <span v-html="comment.content"></span>
                                         <template slot="footer">
                                             <small class="text-muted">
+
                                                 Posted by {{comment.reporter.name}}
                                                 on {{comment.created_at | moment("MMMM Do YYYY")}}
                                                 ({{comment.created_at | moment("from")}})
                                                 <span v-if="comment.created_at!=comment.updated_at">
                                                     , last updated
-                                                    on {{comment.updated_at | moment("MMMM Do YYYY")}}
+                                                    <br/>on {{comment.updated_at | moment("MMMM Do YYYY")}}
                                                     ({{comment.updated_at | moment("from")}})
                                                 </span>
+                                                <img :src="comment.reporter.avatar" class="rounded"/>
                                             </small>
                                         </template>
                                     </b-card>
@@ -195,8 +214,9 @@
                                         <span v-html="comment.content"></span>
                                         <template slot="footer">
                                             <small class="text-muted">
+                                                <img :src="comment.reporter.avatar" class="rounded"/>
                                                 Posted by {{comment.reporter.name}}
-                                                on {{comment.created_at | moment("MMMM Do YYYY")}}
+                                                <br/>on {{comment.created_at | moment("MMMM Do YYYY")}}
                                                 ({{comment.created_at | moment("from")}})
                                                 <span v-if="comment.created_at!=comment.updated_at">
                                                     , last updated
@@ -383,5 +403,9 @@
 <style>
     .comment img {
         max-width: 100%;
+    }
+
+    .comment .card-footer {
+        padding: 0.25rem 0.25rem;
     }
 </style>
