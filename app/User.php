@@ -57,6 +57,6 @@ class User extends Authenticatable
 
     public function getAvatarAttribute()
     {
-        return sprintf('https://www.gravatar.com/avatar/%s?s=38&d=retro', md5(strtolower(trim($this->email))));
+        return sprintf('https://www.gravatar.com/avatar/%s?s=38&d=mp', md5(strtolower(trim($this->email))));
     }
 }

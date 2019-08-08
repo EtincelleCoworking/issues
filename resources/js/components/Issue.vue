@@ -156,13 +156,13 @@
                             <small class="text-muted">Created</small>
                             <br />
                             {{issue.created_at | moment("dddd, MMMM Do YYYY")}}
-                            ({{issue.created_at | moment("from")}})
+                            <small>({{issue.created_at | moment("from")}})</small>
                         </div>
                         <div class="mb-2"v-if="issue.created_at!=issue.updated_at">
                             <small class="text-muted">Last update</small>
                             <br />
                             {{issue.updated_at | moment("dddd, MMMM Do YYYY")}}
-                            ({{issue.updated_at | moment("from")}})
+                            <small>({{issue.updated_at | moment("from")}})</small>
                         </div>
                     </b-card>
                 </div>
@@ -214,9 +214,9 @@
                                         <span v-html="comment.content"></span>
                                         <template slot="footer">
                                             <small class="text-muted">
-                                                <img :src="comment.reporter.avatar" class="rounded"/>
+                                                <img :src="comment.reporter.avatar" class="rounded mr-1"/>
                                                 Posted by {{comment.reporter.name}}
-                                                <br/>on {{comment.created_at | moment("MMMM Do YYYY")}}
+                                                on {{comment.created_at | moment("MMMM Do YYYY")}}
                                                 ({{comment.created_at | moment("from")}})
                                                 <span v-if="comment.created_at!=comment.updated_at">
                                                     , last updated
@@ -230,9 +230,9 @@
                             </template>
 
                         </div>
-                        <b-card header="Comments" v-else>
+                        <p v-else>
                             No comments.
-                        </b-card>
+                        </p>
                         <b-form @submit="addComment">
                             <b-card header="Add a comment" class="mt-3">
                                 <editor-content :editor="comment_editor" class="form-control" style="height: 100%"/>

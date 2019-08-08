@@ -3,7 +3,7 @@
         <b-tabs card>
             <b-tab title="Open issues" active>
                 <b-card-text v-if="issues.length === 0">No Issues</b-card-text>
-                <table class="table table-sm table-striped table-bordered" v-else>
+                <table class="table table-striped table-bordered" v-else>
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -18,7 +18,9 @@
                     <tr v-for="issue in issues">
                         <td>{{issue.id}}</td>
                         <td><a :href="'/issue/' + issue.id">{{issue.title}}</a></td>
-                        <td>{{issue.reporter.name}}</td>
+                        <td>
+                            <img :src="issue.reporter.avatar" class="rounded" :title="issue.reporter.name"/>
+                        </td>
                         <td>{{issue.status}}</td>
                         <td>{{issue.created_at | moment("dddd, MMMM Do YYYY")}}</td>
                         <td>{{issue.updated_at | moment("dddd, MMMM Do YYYY")}}</td>
