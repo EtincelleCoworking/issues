@@ -149,18 +149,18 @@
                         <div class="mb-2">
                             <img :src="issue.reporter.avatar" class="rounded float-right"/>
                             <small class="text-muted">Reported by</small>
-                            <br />
+                            <br/>
                             {{issue.reporter.name}}
                         </div>
                         <div class="mb-2">
                             <small class="text-muted">Created</small>
-                            <br />
+                            <br/>
                             {{issue.created_at | moment("dddd, MMMM Do YYYY")}}
                             <small class="text-muted">({{issue.created_at | moment("from")}})</small>
                         </div>
-                        <div class="mb-2"v-if="issue.created_at!=issue.updated_at">
+                        <div class="mb-2" v-if="issue.created_at!=issue.updated_at">
                             <small class="text-muted">Last update</small>
-                            <br />
+                            <br/>
                             {{issue.updated_at | moment("dddd, MMMM Do YYYY")}}
                             <small class="text-muted">({{issue.updated_at | moment("from")}})</small>
                         </div>
@@ -287,13 +287,14 @@
             addComment(event) {
                 event.preventDefault();
                 //this.updating = true;
+                var content = this.comment;
+                this.comment = '<p>&nbsp;</p>';
+                this.comment_editor.setContent(this.comment);
                 var _this = this;
-                axios.post('/api/issue/' + this.issue.id + '/comments?api_token=' + this.current_user.api_token, {content: this.comment})
+                axios.post('/api/issue/' + this.issue.id + '/comments?api_token=' + this.current_user.api_token, {content: content})
                     .then(function (response) {
                         //_this.updating = false;
                         _this.issue.comments = response.data.comments;
-                        _this.comment = '<p>&nbsp;</p>';
-                        _this.editor.setContent(_this.comment);
                     })
                     .catch(function (error) {
                         console.log(error);
