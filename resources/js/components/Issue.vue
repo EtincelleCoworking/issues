@@ -156,13 +156,13 @@
                             <small class="text-muted">Created</small>
                             <br />
                             {{issue.created_at | moment("dddd, MMMM Do YYYY")}}
-                            <small>({{issue.created_at | moment("from")}})</small>
+                            <small class="text-muted">({{issue.created_at | moment("from")}})</small>
                         </div>
                         <div class="mb-2"v-if="issue.created_at!=issue.updated_at">
                             <small class="text-muted">Last update</small>
                             <br />
                             {{issue.updated_at | moment("dddd, MMMM Do YYYY")}}
-                            <small>({{issue.updated_at | moment("from")}})</small>
+                            <small class="text-muted">({{issue.updated_at | moment("from")}})</small>
                         </div>
                     </b-card>
                 </div>
@@ -191,10 +191,9 @@
                                             footer-text-variant="text"
                                     >
                                         <span v-html="comment.content"></span>
-                                        <template slot="footer">
+                                        <template slot="header">
                                             <small class="text-muted">
-
-                                                Posted by {{comment.reporter.name}}
+                                                {{comment.reporter.name}} commented
                                                 on {{comment.created_at | moment("MMMM Do YYYY")}}
                                                 ({{comment.created_at | moment("from")}})
                                                 <span v-if="comment.created_at!=comment.updated_at">
@@ -212,10 +211,10 @@
                                 <div class="col-10">
                                     <b-card class="mb-2 comment">
                                         <span v-html="comment.content"></span>
-                                        <template slot="footer">
+                                        <template slot="header">
                                             <small class="text-muted">
                                                 <img :src="comment.reporter.avatar" class="rounded mr-1"/>
-                                                Posted by {{comment.reporter.name}}
+                                                {{comment.reporter.name}} commented
                                                 on {{comment.created_at | moment("MMMM Do YYYY")}}
                                                 ({{comment.created_at | moment("from")}})
                                                 <span v-if="comment.created_at!=comment.updated_at">
@@ -294,6 +293,7 @@
                         //_this.updating = false;
                         _this.issue.comments = response.data.comments;
                         _this.comment = '<p>&nbsp;</p>';
+                        _this.editor.setContent(_this.comment);
                     })
                     .catch(function (error) {
                         console.log(error);
