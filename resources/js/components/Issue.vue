@@ -182,52 +182,22 @@
                 <div class="col-12">
                     <b-card header="Comments">
                         <div v-for="comment in issue.comments" v-if="issue.comments.length > 0" class="row">
-                            <template v-if="isRequester(comment)">
-                                <div class="col-2"></div>
-                                <div class="col-10">
-                                    <b-card class="mb-2 comment"
-                                            :class="{'text-right': isRequester(comment)}"
-                                            bg-variant="info" text-variant="white"
-                                            footer-text-variant="text"
-                                    >
-                                        <span v-html="comment.content"></span>
-                                        <template slot="header">
-                                            <small class="text-muted">
-                                                {{comment.reporter.name}} commented
-                                                on {{comment.created_at | moment("MMMM Do YYYY")}}
-                                                ({{comment.created_at | moment("from")}})
-                                                <span v-if="comment.created_at!=comment.updated_at">
+                            <div class="col-12">
+                                <b-card class="mb-2 comment">
+                                    <span v-html="comment.content"></span>
+                                    <template slot="header">
+                                        <img :src="comment.reporter.avatar" class="rounded"/>
+                                        {{comment.reporter.name}} commented
+                                        on {{comment.created_at | moment("MMMM Do YYYY")}}
+                                        ({{comment.created_at | moment("from")}})
+                                        <span v-if="comment.created_at!=comment.updated_at">
                                                     , last updated
                                                     <br/>on {{comment.updated_at | moment("MMMM Do YYYY")}}
                                                     ({{comment.updated_at | moment("from")}})
                                                 </span>
-                                                <img :src="comment.reporter.avatar" class="rounded"/>
-                                            </small>
-                                        </template>
-                                    </b-card>
-                                </div>
-                            </template>
-                            <template v-else>
-                                <div class="col-10">
-                                    <b-card class="mb-2 comment">
-                                        <span v-html="comment.content"></span>
-                                        <template slot="header">
-                                            <small class="text-muted">
-                                                <img :src="comment.reporter.avatar" class="rounded mr-1"/>
-                                                {{comment.reporter.name}} commented
-                                                on {{comment.created_at | moment("MMMM Do YYYY")}}
-                                                ({{comment.created_at | moment("from")}})
-                                                <span v-if="comment.created_at!=comment.updated_at">
-                                                    , last updated
-                                                    on {{comment.updated_at | moment("MMMM Do YYYY")}}
-                                                    ({{comment.updated_at | moment("from")}})
-                                                </span>
-                                            </small>
-                                        </template>
-                                    </b-card>
-                                </div>
-                            </template>
-
+                                    </template>
+                                </b-card>
+                            </div>
                         </div>
                         <p v-else>
                             No comments.
@@ -406,7 +376,7 @@
         max-width: 100%;
     }
 
-    .comment .card-footer {
+    .comment .card-header {
         padding: 0.25rem 0.25rem;
     }
 </style>
